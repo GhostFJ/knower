@@ -2,7 +2,7 @@
  * @Author: FunJust
  * @Date: 2021-11-04 19:29:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-04 23:12:09
+ * @LastEditTime: 2021-11-05 16:39:33
  * @Description:
 -->
 <template>
@@ -14,7 +14,7 @@
             :src="col.avatar"
             :alt="col.title"
             class="my-3 border rounded-circle border-light w-25"
-          >
+          />
           <h5 class="card-title">{{col.title}}</h5>
           <p class="text-left card-text">{{col.description}}</p>
           <a href="#" class="btn btn-outline-primary">进入专栏</a>
@@ -39,7 +39,7 @@ export default defineComponent({
   props: {
     list: {
       type: Array as PropType<ColumnProps[]>,
-      require: true,
+      required: true,
     },
   },
   setup(props) {

@@ -1,13 +1,15 @@
 <!--
  * @Author: FunJust
  * @Date: 2021-11-04 00:06:16
- * @LastEditors:
- * @LastEditTime: 2021-11-04 23:06:27
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-05 20:27:25
  * @Description:
 -->
 <template>
   <div calss="container">
-    <ColumnList :list="list"></ColumnList>
+    <GlobalHeader :user="currentUser"></GlobalHeader>
+    <ColumnList :list="list" v-if="false"></ColumnList>
+    <Form></Form>
   </div>
 </template>
 
@@ -15,6 +17,13 @@
 import { defineComponent } from 'vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ColumnList, { ColumnProps } from '@/components/ColumnList.vue';
+import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue';
+import Form from './components/Form.vue';
+
+const currentUser: UserProps = {
+  isLogin: true,
+  name: 'Hack',
+};
 
 const testData: ColumnProps[] = [
   {
@@ -47,22 +56,35 @@ export default defineComponent({
   name: 'App',
   components: {
     ColumnList,
+    GlobalHeader,
+    Form,
   },
   setup() {
+    // const send = () => {
+    //   console.log(window.parent);
+
+    //   window.parent.postMessage({
+    //     data: {
+    //       info: 'success',
+    //       data: '我是子页面的test！',
+    //     },
+    //   }, '*');
+    // };
     return {
       list: testData,
+      currentUser,
     };
   },
 });
 </script>
 
 <style>
-#app {
+/* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
+} */
 </style>
