@@ -1,22 +1,22 @@
 <!--
  * @Author: FunJust
  * @Date: 2021-11-04 19:29:05
- * @LastEditors:
- * @LastEditTime: 2021-11-04 19:29:06
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-04 23:12:09
  * @Description:
 -->
 <template>
   <div class="row">
-    <div v-for="col in list" :key="col.id" class="col-4 mb-4">
-      <div class="card shadow-sm">
-        <div class="card-body text-center">
+    <div v-for="col in colList" :key="col.id" class="mb-4 col-4">
+      <div class="shadow-sm card">
+        <div class="text-center card-body">
           <img
             :src="col.avatar"
             :alt="col.title"
-            class="rounded-circle border border-light w-25 my-3"
+            class="my-3 border rounded-circle border-light w-25"
           >
           <h5 class="card-title">{{col.title}}</h5>
-          <p class="card-text text-left">{{col.description}}</p>
+          <p class="text-left card-text">{{col.description}}</p>
           <a href="#" class="btn btn-outline-primary">进入专栏</a>
         </div>
       </div>

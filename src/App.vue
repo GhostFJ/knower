@@ -1,3 +1,10 @@
+<!--
+ * @Author: FunJust
+ * @Date: 2021-11-04 00:06:16
+ * @LastEditors:
+ * @LastEditTime: 2021-11-04 23:06:27
+ * @Description:
+-->
 <template>
   <div calss="container">
     <ColumnList :list="list"></ColumnList>
