@@ -1,3 +1,8 @@
+/*
+ * @Author: FunJust
+ * @Date: 2021-11-04 00:06:16
+ * @Description:
+ */
 module.exports = {
   root: true,
   env: {

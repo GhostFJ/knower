@@ -4,40 +4,47 @@
  * @Description:
 -->
 <template>
-  <div class="validate-input-container pb-3">
-    <input type="text"
+  <div class="pb-3 validate-input-container">
+    <input
       class="form-control"
       :class="{'is-invalid': inputRef.err}"
-      v-model="inputRef.val"
+      :value="inputRef.val"
+      v-bind="$attrs"
       @blur="ValidateInput"
+      @input="updateValue"
     >
     <span v-if="inputRef.err" class="invalid-feedback">{{inputRef.msg}}</span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue';
+import {
+  defineComponent, reactive, PropType, onMounted,
+} from 'vue';
+import { RulesProp } from '@/store/types';
+import { emitter } from './ValidateForm.vue';
 
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-interface RuleProp {
-  type: 'required' | 'email';
-  message: string;
-}
-
-export type RulesProp = RuleProp[]
 
 export default defineComponent({
   name: 'ValidateInput',
   props: {
     rules: Array as PropType<RulesProp>,
+    modelValue: String,
   },
-  setup(props) {
+  inheritAttrs: false,
+  setup(props, { emit }) {
     const inputRef = reactive({
-      val: '',
+      val: props.modelValue || '',
       err: false,
       msg: '',
     });
+
+    const updateValue = (e: Event) => {
+      const targetVal = (e.target as HTMLInputElement).value;
+      inputRef.val = targetVal;
+      emit('update:modelValue', targetVal);
+    };
 
     const ValidateInput = () => {
       if (props.rules) {
@@ -51,6 +58,9 @@ export default defineComponent({
             case 'email':
               passed = emailReg.test(inputRef.val);
               break;
+            case 'range':
+              passed = inputRef.val.length > 6;
+              break;
             default:
               break;
           }
@@ -58,11 +68,18 @@ export default defineComponent({
         });
 
         inputRef.err = !allPassed;
+        return allPassed;
       }
+      return true;
     };
+
+    onMounted(() => {
+      emitter.emit('form-item-created', ValidateInput);
+    });
     return {
       inputRef,
       ValidateInput,
+      updateValue,
     };
   },
 });

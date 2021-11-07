@@ -2,7 +2,7 @@
  * @Author: FunJust
  * @Date: 2021-11-04 19:29:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-05 16:39:33
+ * @LastEditTime: 2021-11-06 22:33:13
  * @Description:
 -->
 <template>
@@ -17,7 +17,7 @@
           />
           <h5 class="card-title">{{col.title}}</h5>
           <p class="text-left card-text">{{col.description}}</p>
-          <a href="#" class="btn btn-outline-primary">进入专栏</a>
+          <router-link :to="`/detail/${col.id}`" class="btn btn-outline-primary">进入专栏</router-link>
         </div>
       </div>
     </div>
@@ -26,13 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue';
-
-export interface ColumnProps {
-  id: number;
-  title: string;
-  avatar?: string;
-  description: string;
-}
+import { ColumnProps } from '@/store/types';
 
 export default defineComponent({
   name: 'ColumnList',
